@@ -3,32 +3,16 @@ const tempClient = {
     email: "filipeguimaraes@gmail.com",
     celular: "990297113",
     cidade: "Santa City"
-}; // Step 1: Essa constante será criada para não interagir com os dados da tela. Quando nós chamarmos o createClient, nós passaremos esse tempClient.
+};
 
 const getLocalStorage = () => JSON.parse(localStorage.getItem("db_client")) ?? [];
 const setLocalStorage = (dbClient) => localStorage.setItem("db_client", JSON.stringify(dbClient))
 
-// Step 7: Vamos começar a organizar melhor as coisas. No que isso irá facilitar? Na constante db_client, quando quisemos trazer os clientes, simplesmente passaremos a função getLocalStorage() e quando quiser enviar os clientes, apenas declare dentro de createClient a função setLocalStorage().
-// Lógico, precisamos informar o que queremos enviar, e qual a chave. Vamos mudar também de snake_CamelCase pra camelCase, por favor.
-
+// Create
 const createClient = (client) => {
     const dbClient = getLocalStorage();
     dbClient.push(client);
     setLocalStorage(dbClient)
 }; 
 
-// Step 1: Esse cliente precisa do nome, e-mail, celular e a cidade. É necessário enviar os dados para o localStorage (LS). Como funciona o LS? Nós passaremos uma chave e o valor dela dentro dos parênteses. Basicamente o primeiro argumento é uma KEY que receberá o segundo argumento, um VALUE. Eles ficarão salvos até que você delete eles.
-
-// Step 2: esse LS set vai pegar as keys e values do tempClient. No caso, o db_client é a key, será o banco de dados, e o client vão ser as informações recebidas pela função, que será posteriormente a tempClient. Basta colocar createClient(tempClient) que assim será guardado.
-
-// Step 3: Há um porém, quando se trata de objetos serem usados como argumento para serem guardados, a key só aceita STRINGS. Mas isso pode ser facilmente resolvido com o JSON.stringify().
-
-// Step 4: O envio está funcionando, mas ao mudar os dados do tempClient - de forma bruta, mudando manualmente as values - o db_client ao invés de criar um novo Client na database, ele substitui as informações do anterior, tem algo errado. Para mudar isso podemos colocar esses dados em um ARRAY e então fazer um push sempre que houver novos objetos. Não esqueça que mudamos a value de client para db_client da key "db_client"
-
-// Step 5: Porém, continuou substituindo. Isso porque estamos pegando a partir de um array vazio, e isso não pode acontecer. O ideal seria ler o que já está no banco de dados. com o LS get. Ele lerá o banco e adicionará com PUSH o novo cliente.
-// Após fazer isso, perceberá que ainda há algo errado. Ele traz os dados, mas em STRING. Então transforme novamente o LS get em JSON com o parse ao invés do stringify.
-// A partir de agora, enquanto você estiver mudando os dados de forma manual e bruta, você perceberá que ao invés de substituir, agora ele vai acumular os dados.
-
-// Step 6: O que foi feito até agora? Basicamente a constante db_client pega o que tem no banco de dados e transforma em JSON e armazena isso tudo dentro dessa constante/variável. O push vai acrescentar novos dados/clientes que chegarão pelo parâmetro.
-// E se o banco de dados estiver vazio? Delete tudo e dê um createClient(tempClient), você perceberá que deu um erro. Pois ele não vai conseguir dar push em algo nulo. Então faremos o seguinte, se o db estiver vazio/nulo, colocaremos duas interrogações (?? - ternary operator pra saber se é false ou true, null é false) para verificar e retornar um array vazio ([]).
-
+// Lembrando que vamos apagando conforme se passa 7 etapas. Pro código não ficar tão cheio de comentários, qualquer coisa apenas volte o commit para ver os comments anteriores.
