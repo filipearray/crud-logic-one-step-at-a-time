@@ -12,4 +12,6 @@ const createClient = (client) => {
 
 // Step 2: esse LS set vai pegar as keys e values do tempClient. No caso, o db_client é a key, será o banco de dados, e o client vão ser as informações recebidas pela função, que será posteriormente a tempClient. Basta colocar createClient(tempClient) que assim será guardado.
 
+// Step 3: Há um porém, quando se trata de objetos serem usados como argumento para serem guardados, a key só aceita STRINGS. Mas isso pode ser facilmente resolvido com o JSON.stringify().
+
 
