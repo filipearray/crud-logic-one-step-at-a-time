@@ -6,7 +6,7 @@ const tempClient = {
 }; // Step 1: Essa constante será criada para não interagir com os dados da tela. Quando nós chamarmos o createClient, nós passaremos esse tempClient.
 
 const createClient = (client) => {
-    const db_client = JSON.parse(localStorage.getItem("db_client"))
+    const db_client = JSON.parse(localStorage.getItem("db_client")) ?? [];
 
     db_client.push(client);
 
@@ -23,5 +23,8 @@ const createClient = (client) => {
 // Step 5: Porém, continuou substituindo. Isso porque estamos pegando a partir de um array vazio, e isso não pode acontecer. O ideal seria ler o que já está no banco de dados. com o LS get. Ele lerá o banco e adicionará com PUSH o novo cliente.
 // Após fazer isso, perceberá que ainda há algo errado. Ele traz os dados, mas em STRING. Então transforme novamente o LS get em JSON com o parse ao invés do stringify.
 // A partir de agora, enquanto você estiver mudando os dados de forma manual e bruta, você perceberá que ao invés de substituir, agora ele vai acumular os dados.
+
+// Step 6: O que foi feito até agora? Basicamente a constante db_client pega o que tem no banco de dados e transforma em JSON e armazena isso tudo dentro dessa constante/variável. O push vai acrescentar novos dados/clientes que chegarão pelo parâmetro.
+// E se o banco de dados estiver vazio? Delete tudo e dê um createClient(tempClient), você perceberá que deu um erro. Pois ele não vai conseguir dar push em algo nulo. Então faremos o seguinte, se o db estiver vazio/nulo, colocaremos duas interrogações (?? - ternary operator pra saber se é false ou true, null é false) para verificar e retornar um array vazio ([]).
 
 
