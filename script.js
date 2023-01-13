@@ -5,14 +5,19 @@ const tempClient = {
     cidade: "Santa City"
 }; // Step 1: Essa constante será criada para não interagir com os dados da tela. Quando nós chamarmos o createClient, nós passaremos esse tempClient.
 
+const getLocalStorage = () => JSON.parse(localStorage.getItem("db_client")) ?? [];
+const setLocalStorage = (dbClient) => localStorage.setItem("db_client", JSON.stringify(dbClient))
+
+// Step 7: Vamos começar a organizar melhor as coisas. No que isso irá facilitar? Na constante db_client, quando quisemos trazer os clientes, simplesmente passaremos a função getLocalStorage() e quando quiser enviar os clientes, apenas declare dentro de createClient a função setLocalStorage().
+// Lógico, precisamos informar o que queremos enviar, e qual a chave. Vamos mudar também de snake_CamelCase pra camelCase, por favor.
+
 const createClient = (client) => {
-    const db_client = JSON.parse(localStorage.getItem("db_client")) ?? [];
+    const dbClient = getLocalStorage();
+    dbClient.push(client);
+    setLocalStorage(dbClient)
+}; 
 
-    db_client.push(client);
-
-    localStorage.setItem("db_client", JSON.stringify(db_client))
-
-}; // Step 1: Esse cliente precisa do nome, e-mail, celular e a cidade. É necessário enviar os dados para o localStorage (LS). Como funciona o LS? Nós passaremos uma chave e o valor dela dentro dos parênteses. Basicamente o primeiro argumento é uma KEY que receberá o segundo argumento, um VALUE. Eles ficarão salvos até que você delete eles.
+// Step 1: Esse cliente precisa do nome, e-mail, celular e a cidade. É necessário enviar os dados para o localStorage (LS). Como funciona o LS? Nós passaremos uma chave e o valor dela dentro dos parênteses. Basicamente o primeiro argumento é uma KEY que receberá o segundo argumento, um VALUE. Eles ficarão salvos até que você delete eles.
 
 // Step 2: esse LS set vai pegar as keys e values do tempClient. No caso, o db_client é a key, será o banco de dados, e o client vão ser as informações recebidas pela função, que será posteriormente a tempClient. Basta colocar createClient(tempClient) que assim será guardado.
 
@@ -26,5 +31,4 @@ const createClient = (client) => {
 
 // Step 6: O que foi feito até agora? Basicamente a constante db_client pega o que tem no banco de dados e transforma em JSON e armazena isso tudo dentro dessa constante/variável. O push vai acrescentar novos dados/clientes que chegarão pelo parâmetro.
 // E se o banco de dados estiver vazio? Delete tudo e dê um createClient(tempClient), você perceberá que deu um erro. Pois ele não vai conseguir dar push em algo nulo. Então faremos o seguinte, se o db estiver vazio/nulo, colocaremos duas interrogações (?? - ternary operator pra saber se é false ou true, null é false) para verificar e retornar um array vazio ([]).
-
 
