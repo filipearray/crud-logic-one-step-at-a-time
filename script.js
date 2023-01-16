@@ -8,11 +8,13 @@ const tempClient = {
 const getLocalStorage = () => JSON.parse(localStorage.getItem("db_client")) ?? [];
 const setLocalStorage = (dbClient) => localStorage.setItem("db_client", JSON.stringify(dbClient))
 
-// Create
+// READ
+const readClient = () => getLocalStorage(); 
+// Step 8: Ele irá ler o que tem no getLocalStorage. Ou seja, o getLocalStorage poderia fazer essa função sem ter que declarar o readClient, mas como precisamos ser didáticos, o read ficará assim.
+
+// CREATE
 const createClient = (client) => {
     const dbClient = getLocalStorage();
     dbClient.push(client);
     setLocalStorage(dbClient)
-}; 
-
-// Lembrando que vamos apagando conforme se passa 7 etapas. Pro código não ficar tão cheio de comentários, qualquer coisa apenas volte o commit para ver os comments anteriores.
+};
